@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Really Bad Site</title>
+    <!-- No charset or viewport meta tag (Seo)-->
+    <style>
+      /* Non-responsive fixed width and blocking CSS with expensive animations */
+      body {
+        font-family: Arial, sans-serif;
+        animation: backgroundPulse 0.01s infinite;
+        background-image: linear-gradient(45deg, #fff, #f0f0f0);
+        background-size: 200% 200%;
+      }
+      .content {
+        width: 1200px;
+        margin: 0 auto;
+        transform: translateZ(0);
+        filter: blur(0.1px);
+      }
+      @keyframes backgroundPulse {
+        0% {
+          background-position: 0% 0%;
+        }
+        50% {
+          background-position: 100% 100%;
+        }
+        100% {
+          background-position: 0% 0%;
+        }
+      }
+      * {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        transition: all 0.1s ease;
+      }
+    </style>
+    <script>
+      // Block initial load with heavy computation
+      const startTime = Date.now();
+      while (Date.now() - startTime < 2000) {
+        Math.random() * Math.random();
+      }
+
+      // Create large memory allocation
+      // Each "🐷" emoji is 4 bytes (UTF-16)
+      // 500,000 array elements * 100 repeated emojis * 4 bytes = ~200MB
+      const memoryHog = new Array(500000).fill("🐷".repeat(100));
+
+      // Force layout thrashing aggressively (document reflows are expensive)
+      setInterval(() => {
+        for (let i = 0; i < 100; i++) {
+          document.body.style.width = Math.random() * 100 + "%";
+          document.body.offsetWidth; // Force reflow
+          document.body.style.height = Math.random() * 100 + "vh";
+          document.body.offsetHeight; // Force reflow
+        }
+      }, 100);
+    </script>
+  </head>
+  <body>
+    <div class="content">
+      <h1>Welcome to the Really Bad Site</h1>
+      <!-- Huge images that force large network requests and repaints -->
+      <img src="https://placehold.co/8000x6000" />
+      <img src="https://placehold.co/8000x6000" />
+      <img src="https://placehold.co/8000x6000" />
+      <img src="https://placehold.co/8000x6000" />
+      <img src="https://placehold.co/8000x6000" />
+      <p>This site is intentionally built to destroy lighthouse metrics.</p>
+
+      <!-- Create elements with expensive CSS and force reflows -->
+      <script>
+        for (let i = 0; i < 1000; i++) {
+          const div = document.createElement("div");
+          div.style.cssText = `
+            position: fixed;
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: red;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            transform: rotate(${Math.random() * 360}deg) scale(1.5);
+            filter: blur(0.5px);
+            opacity: 0.9;
+            z-index: 1000;
+          `;
+          document.body.appendChild(div);
+          div.offsetHeight; // Force reflow for each element
+        }
+      </script>
+
+      <!-- Load multiple heavy third-party scripts synchronously -->
+      <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+
+      <!-- Continuous expensive animations and DOM updates -->
+      <script>
+        function animate() {
+          const elements = document.querySelectorAll("div");
+          elements.forEach((div) => {
+            div.style.transform = `rotate(${Date.now() % 360}deg) scale(${
+              1 + Math.sin(Date.now() / 1000) * 0.5
+            })`;
+            div.style.filter = `blur(${Math.sin(Date.now() / 1000) * 2}px)`;
+            div.style.boxShadow = `0 0 ${Math.random() * 50}px rgba(${
+              Math.random() * 255
+            },0,0,0.5)`;
+            div.offsetHeight; // Force reflow
+          });
+          requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Additional DOM updates
+        setInterval(() => {
+          document.body.innerHTML +=
+            '<div style="display:none">Force reflow</div>';
+          document.body.offsetHeight;
+          document.body.lastChild.remove();
+        }, 50);
+      </script>
+    </div>
+
+    <!-- Multiple Web Workers doing intensive work -->
+    <!-- If you want to run this but are crashing decrease 25000 iterations-->
+    <script>
+      for (let i = 0; i < 3; i++) {
+        const blob = new Blob(
+          [
+            `
+          setInterval(() => {
+            for(let i = 0; i < 25000; i++) {
+              Math.random() * Math.random();
+            }
+          }, 100);
+        `,
+          ],
+          { type: "application/javascript" }
+        );
+        new Worker(URL.createObjectURL(blob));
+      }
+    </script>
+  </body>
+</html>
