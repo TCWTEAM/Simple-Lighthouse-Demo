@@ -23,6 +23,10 @@ npm run start:bad
 npm run start:good
 ```
 
+## Warning
+
+The `bad.html` is intentionally slow, intensive, and a memory hog. If you don't trust your computer enough to run it or have too little resources, it may crash your browser and running the `good.html` only is probably a better idea in this scenario. You can see the intended outputs in `/screenshots/bad-lighthouse.png`.
+
 ## Running Lighthouse Tests
 
 1. Open Chrome DevTools (F12)
