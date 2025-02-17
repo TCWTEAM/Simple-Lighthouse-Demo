@@ -1,4 +1,4 @@
-/* Basic unoptimized server to test the slow site */
+/* Basic optimized server to test the good site */
 
 const express = require("express");
 const compression = require("compression");
