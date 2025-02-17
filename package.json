@@ -1,15 +1,24 @@
 {
-  "name": "sld.nosync",
+  "name": "simple-lighthouse-demo",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tcwteam/simple-lighthouse-demo"
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:bad": "node server-bad.js",
     "start:good": "node server-good.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "lighthouse",
+    "performance",
+    "web",
+    "performance"
+  ],
+  "author": "https://github.com/tcwteam",
+  "license": "MIT",
   "description": "",
   "dependencies": {
     "compression": "^1.8.0",
