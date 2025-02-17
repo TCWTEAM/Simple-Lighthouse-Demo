@@ -5,7 +5,7 @@
     "type": "git",
     "url": "https://github.com/tcwteam/simple-lighthouse-demo"
   },
-  "main": "index.js",
+  "main": "server-good.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:bad": "node server-bad.js",
